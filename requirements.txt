@@ -1,0 +1,8 @@
+streamlit>=1.31.0
+google-genai>=2.6.0
+python-dotenv>=1.0.0
+SpeechRecognition>=3.16.0
+audioop-lts>=0.2.2
+vieneu>=2.7.0
+pygame>=2.5.0
+ddgs>=9.0.0
