@@ -1,4 +1,6 @@
 .env
 venv/
 __pycache__/
-*.pyc
+*.pyc.DS_Store
+dora_response.wav
+tempCodeRunnerFile.py

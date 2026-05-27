@@ -1,8 +1,9 @@
+--extra-index-url https://pnnbao97.github.io/llama-cpp-python-v0.3.16/cpu/
 streamlit>=1.31.0
 google-genai>=2.6.0
 python-dotenv>=1.0.0
 SpeechRecognition>=3.16.0
 audioop-lts>=0.2.2
-vieneu>=2.7.0 --extra-index-url https://pnnbao97.github.io/llama-cpp-python-v0.3.16/cpu/
+vieneu>=2.7.0
 pygame>=2.5.0
 ddgs>=9.0.0
