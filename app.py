@@ -442,10 +442,13 @@ if st.session_state.mode == "text":
         st.session_state.pending_prompt = prompt
         st.rerun()
 else: 
-    audio_data = st.audio_input("Talk to me babe ~ ")
-    if audio_data is not None: 
+    audio_data = st.audio_input("Talk to me babe ~ ", key=f"audio_{st.session_state.audio_key}")
+    if audio_data is not None:
         recognizer = sr.Recognizer()
-        with sr.AudioFile(io.BytesIO(audio_data.read())) as source: 
+        recognizer.energy_threshold = 400
+        recognizer.dynamic_energy_threshold = False
+        with sr.AudioFile(io.BytesIO(audio_data.read())) as source:
+            recognizer.adjust_for_ambient_noise(source, duration=0.5)
             audio = recognizer.record(source)
         try: 
             text = recognizer.recognize_google(audio, language = "vi-VN")
