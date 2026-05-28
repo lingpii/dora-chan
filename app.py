@@ -32,6 +32,8 @@ if "pending_audio" not in st.session_state:
     st.session_state.pending_audio = None
 if "mode" not in st.session_state:
     st.session_state.mode = "text"
+if "audio_key" not in st.session_state:
+    st.session_state.audio_key = 0
 
 
 # ── SVG definitions (injected once, referenced by all avatars) ──────────────
@@ -403,13 +405,15 @@ if st.session_state.pending_prompt:
         "show_avatar": True,
     })
     if st.session_state.mode == "voice":
-        wav_path = st.session_state.dora_voice.generate_wav(dora_reply)
-        with open(wav_path, "rb") as f:
-            st.session_state.pending_audio = f.read()
+        audio_path = st.session_state.dora_voice.generate_wav(dora_reply)
+        fmt = "audio/mpeg" if audio_path.endswith(".mp3") else "audio/wav"
+        with open(audio_path, "rb") as f:
+            st.session_state.pending_audio = (f.read(), fmt)
     st.rerun()
 
 if st.session_state.pending_audio:
-    st.audio(st.session_state.pending_audio, format="audio/wav", autoplay=True)
+    audio_bytes, fmt = st.session_state.pending_audio
+    st.audio(audio_bytes, format=fmt, autoplay=True)
     st.session_state.pending_audio = None 
 
 
