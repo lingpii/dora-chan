@@ -1,9 +1,11 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import datetime
 import html as html_lib
-from chat import DoraChat 
-import speech_recognition as sr 
-import io 
+import base64
+from chat import DoraChat
+import speech_recognition as sr
+import io
 from voice import Speech_Recognition
 
 st.set_page_config(
@@ -413,7 +415,11 @@ if st.session_state.pending_prompt:
 
 if st.session_state.pending_audio:
     audio_bytes, fmt = st.session_state.pending_audio
-    st.audio(audio_bytes, format=fmt, autoplay=True)
+    b64 = base64.b64encode(audio_bytes).decode()
+    components.html(
+        f'<audio autoplay style="display:none"><source src="data:{fmt};base64,{b64}" type="{fmt}"></audio>',
+        height=0,
+    )
     st.session_state.pending_audio = None 
 
 
